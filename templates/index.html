@@ -1,36 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>AIrtisan</title>
+  <meta charset="UTF-8" />
+  <title>AI Style Transfer</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background: linear-gradient(to right, #0f0f0f, #1a1a1a);
+      font-family: 'Fira Code', monospace;
+    }
+
+    .glass {
+      background: rgba(20, 20, 20, 0.5);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(0, 255, 0, 0.2);
+      box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
 </head>
-<body class="bg-gray-100 text-gray-800 min-h-screen flex flex-col justify-between">
+<body class="min-h-screen flex flex-col justify-between text-green-300">
 
   <main class="flex flex-col items-center justify-center py-10">
-    <h1 class="text-4xl font-bold mb-8 text-indigo-600">🎨 AIrtisan </h1>
+    <h1 class="text-4xl font-bold mb-8 text-green-400 drop-shadow">🧠 AI Style Transfer</h1>
 
-    <form action="/stylize" method="POST" enctype="multipart/form-data" class="bg-white p-8 rounded shadow-md w-96">
+    <form action="/stylize" method="POST" enctype="multipart/form-data" 
+          class="glass p-8 rounded-2xl w-[90%] sm:w-96 text-green-200">
       <label class="block mb-4">
-        <span class="text-gray-700">Upload Style Image</span>
-        <input type="file" name="style" required class="mt-1 block w-full border px-3 py-2 rounded" />
+        <span class="text-green-400">Upload Style Image</span>
+        <input type="file" name="style" required
+               class="mt-1 block w-full px-3 py-2 rounded bg-black bg-opacity-30 border border-green-500 text-green-300" />
       </label>
 
       <label class="block mb-6">
-        <span class="text-gray-700">Upload Content Image</span>
-        <input type="file" name="content" required class="mt-1 block w-full border px-3 py-2 rounded" />
+        <span class="text-green-400">Upload Content Image</span>
+        <input type="file" name="content" required
+               class="mt-1 block w-full px-3 py-2 rounded bg-black bg-opacity-30 border border-green-500 text-green-300" />
       </label>
 
-      <button type="submit" class="w-full bg-indigo-600 text-white py-2 rounded hover:bg-indigo-700 transition">
+      <button type="submit"
+              class="w-full bg-green-500 text-black font-bold py-2 rounded hover:bg-green-400 transition">
         Stylize Now
       </button>
     </form>
   </main>
 
-  <!-- 👨‍💻 Developer Tag -->
-  <footer class="text-center p-4">
-    <a href="https://portfolio-three-gray-24.vercel.app/" target="_blank" class="text-sm text-gray-500 hover:text-indigo-600 transition">
-      crafted by <strong>Fairoz Ahmad Sheikh</strong>
+  <footer class="text-center p-4 text-sm text-green-600">
+    <a href="https://portfolio-three-gray-24.vercel.app/" target="_blank" class="hover:text-green-400">
+      by <strong>Fairoz Ahmad Sheikh</strong>
     </a>
   </footer>
 </body>
