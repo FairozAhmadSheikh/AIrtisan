@@ -41,11 +41,15 @@ Deployment	Render / Railway (Free)
 
 🛠 Installation
 bash ```
-git clone https://github.com/FairozAhmadSheikh/AIrtisan.git
-cd AIrtisan
-pip install -r requirements.txt
-python app.py
-Access the app at: http://localhost:5000```
+git clone https://github.com/FairozAhmadSheikh/AIrtisan.git <br>
+cd AIrtisan <br>
+pip install -r requirements.txt <br>
+python app.py <br>
+Access the app at: http://localhost:5000 <br> ```
+
+👨‍💻 Developer
+Built with ❤️ by Fairoz Ahmad Sheikh
+
 
 
 📄 License
