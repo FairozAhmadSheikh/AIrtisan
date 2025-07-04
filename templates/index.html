@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AI Style Transfer</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800 min-h-screen flex flex-col justify-between">
+
+  <main class="flex flex-col items-center justify-center py-10">
+    <h1 class="text-4xl font-bold mb-8 text-indigo-600">🎨 AI Style Transfer</h1>
+
+    <form action="/stylize" method="POST" enctype="multipart/form-data" class="bg-white p-8 rounded shadow-md w-96">
+      <label class="block mb-4">
+        <span class="text-gray-700">Upload Style Image</span>
+        <input type="file" name="style" required class="mt-1 block w-full border px-3 py-2 rounded" />
+      </label>
+
+      <label class="block mb-6">
+        <span class="text-gray-700">Upload Content Image</span>
+        <input type="file" name="content" required class="mt-1 block w-full border px-3 py-2 rounded" />
+      </label>
+
+      <button type="submit" class="w-full bg-indigo-600 text-white py-2 rounded hover:bg-indigo-700 transition">
+        Stylize Now
+      </button>
+    </form>
+  </main>
+
+  <!-- 👨‍💻 Developer Tag -->
+  <footer class="text-center p-4">
+    <a href="https://portfolio-three-gray-24.vercel.app/" target="_blank" class="text-sm text-gray-500 hover:text-indigo-600 transition">
+      by <strong>Fairoz Ahmad Sheikh</strong>
+    </a>
+  </footer>
+</body>
+</html>
