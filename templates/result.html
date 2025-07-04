@@ -4,20 +4,37 @@
   <meta charset="UTF-8">
   <title>Stylized Result</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background: linear-gradient(to right, #0f0f0f, #1a1a1a);
+      font-family: 'Fira Code', monospace;
+    }
+
+    .glass {
+      background: rgba(20, 20, 20, 0.5);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(0, 255, 0, 0.2);
+      box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
 </head>
-<body class="bg-gray-100 text-gray-800 min-h-screen flex flex-col justify-between">
+<body class="min-h-screen flex flex-col justify-between text-green-300">
 
   <main class="flex flex-col items-center py-10">
-    <h1 class="text-3xl font-semibold mb-6 text-indigo-600">🖼 Stylized Image</h1>
-    <img src="{{ output_image }}" alt="Stylized Image" class="rounded-lg shadow-lg w-96 mb-6">
+    <h1 class="text-3xl font-semibold mb-6 text-green-400 drop-shadow">🖼 Stylized Output</h1>
 
-    <a href="{{ url_for('index') }}" class="text-indigo-600 hover:underline">Try another style</a>
+    <div class="glass p-4 rounded-2xl">
+      <img src="{{ output_image }}" alt="Stylized Image" class="rounded-xl w-96 mb-6">
+    </div>
+
+    <a href="{{ url_for('index') }}"
+       class="mt-4 text-green-300 hover:text-green-500 underline transition">Try another style</a>
   </main>
 
-  <!-- Developer Tag -->
-  <footer class="text-center p-4">
-    <a href="https://portfolio-three-gray-24.vercel.app/" target="_blank" class="text-sm text-gray-500 hover:text-indigo-600 transition">
-      crafted by <strong>Fairoz Ahmad Sheikh</strong>
+  <footer class="text-center p-4 text-sm text-green-600">
+    <a href="https://portfolio-three-gray-24.vercel.app/" target="_blank" class="hover:text-green-400">
+       Crafted and Maintained by <strong>Fairoz Ahmad Sheikh</strong>
     </a>
   </footer>
 </body>
