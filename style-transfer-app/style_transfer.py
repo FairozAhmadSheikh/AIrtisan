@@ -90,3 +90,24 @@ def get_style_model_and_losses(cnn, normalization_mean, normalization_std,
             name = f'bn_{i}'
         else:
             continue
+        model.add_module(name, layer)
+
+        if name in content_layers:
+            target = model(content_img).detach()
+            content_loss = ContentLoss(target)
+            model.add_module(f"content_loss_{i}", content_loss)
+            content_losses.append(content_loss)
+
+        if name in style_layers:
+            target_feature = model(style_img).detach()
+            style_loss = StyleLoss(target_feature)
+            model.add_module(f"style_loss_{i}", style_loss)
+            style_losses.append(style_loss)
+
+    # Trim model
+    for i in range(len(model) - 1, -1, -1):
+        if isinstance(model[i], (ContentLoss, StyleLoss)):
+            break
+    model = model[:i+1]
+
+    return model, style_losses, content_losses
