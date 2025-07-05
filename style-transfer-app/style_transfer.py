@@ -54,3 +54,39 @@ cnn = models.vgg19(pretrained=True).features.to(device).eval()
 
 cnn_normalization_mean = torch.tensor([0.485, 0.456, 0.406]).to(device)
 cnn_normalization_std = torch.tensor([0.229, 0.224, 0.225]).to(device)
+class Normalization(nn.Module):
+    def __init__(self, mean, std):
+        super(Normalization, self).__init__()
+        self.mean = mean.view(-1, 1, 1)
+        self.std = std.view(-1, 1, 1)
+
+    def forward(self, img):
+        return (img - self.mean) / self.std
+
+def get_style_model_and_losses(cnn, normalization_mean, normalization_std,
+                                style_img, content_img):
+    cnn = copy.deepcopy(cnn)
+    normalization = Normalization(normalization_mean, normalization_std).to(device)
+
+    content_layers = ['conv_4']
+    style_layers = ['conv_1', 'conv_2', 'conv_3', 'conv_4', 'conv_5']
+
+    content_losses = []
+    style_losses = []
+
+    model = nn.Sequential(normalization)
+
+    i = 0
+    for layer in cnn.children():
+        if isinstance(layer, nn.Conv2d):
+            i += 1
+            name = f'conv_{i}'
+        elif isinstance(layer, nn.ReLU):
+            name = f'relu_{i}'
+            layer = nn.ReLU(inplace=False)
+        elif isinstance(layer, nn.MaxPool2d):
+            name = f'pool_{i}'
+        elif isinstance(layer, nn.BatchNorm2d):
+            name = f'bn_{i}'
+        else:
+            continue
