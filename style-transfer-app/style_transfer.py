@@ -34,3 +34,9 @@ class ContentLoss(nn.Module):
     def forward(self, input):
         self.loss = nn.functional.mse_loss(input, self.target)
         return input
+# Style loss
+def gram_matrix(input):
+    b, c, h, w = input.size()
+    features = input.view(c, h * w)
+    G = torch.mm(features, features.t())
+    return G.div(c * h * w)
