@@ -20,3 +20,17 @@ unloader = transforms.Compose([
                          std=[4.37, 4.46, 4.44]),
     transforms.ToPILImage()
 ])
+def load_image(img_path):
+    image = Image.open(img_path).convert('RGB')
+    image = loader(image).unsqueeze(0)
+    return image.to(device, torch.float)
+
+# Content loss
+class ContentLoss(nn.Module):
+    def __init__(self, target):
+        super(ContentLoss, self).__init__()
+        self.target = target.detach()
+
+    def forward(self, input):
+        self.loss = nn.functional.mse_loss(input, self.target)
+        return input
