@@ -111,3 +111,31 @@ def get_style_model_and_losses(cnn, normalization_mean, normalization_std,
     model = model[:i+1]
 
     return model, style_losses, content_losses
+
+def run_style_transfer(style_path, content_path, output_path, num_steps=300, style_weight=1e6, content_weight=1):
+    style_img = load_image(style_path)
+    content_img = load_image(content_path)
+    input_img = content_img.clone()
+
+    model, style_losses, content_losses = get_style_model_and_losses(
+        cnn, cnn_normalization_mean, cnn_normalization_std, style_img, content_img)
+
+    optimizer = optim.LBFGS([input_img.requires_grad_()])
+
+    run = [0]
+    while run[0] <= num_steps:
+        def closure():
+            input_img.data.clamp_(0, 1)
+
+            optimizer.zero_grad()
+            model(input_img)
+            style_score = sum(sl.loss for sl in style_losses)
+            content_score = sum(cl.loss for cl in content_losses)
+
+            loss = style_weight * style_score + content_weight * content_score
+            loss.backward()
+
+            run[0] += 1
+            return loss
+
+        optimizer.step(closure)
