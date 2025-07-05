@@ -5,6 +5,7 @@ import torchvision.models as models
 import torchvision.transforms as transforms
 from PIL import Image
 import copy
+
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # Preprocess images
@@ -15,11 +16,13 @@ loader = transforms.Compose([
     transforms.Normalize(mean=[0.485, 0.456, 0.406],
                          std=[0.229, 0.224, 0.225])
 ])
+
 unloader = transforms.Compose([
     transforms.Normalize(mean=[-2.12, -2.04, -1.80],
                          std=[4.37, 4.46, 4.44]),
     transforms.ToPILImage()
 ])
+
 def load_image(img_path):
     image = Image.open(img_path).convert('RGB')
     image = loader(image).unsqueeze(0)
@@ -34,12 +37,14 @@ class ContentLoss(nn.Module):
     def forward(self, input):
         self.loss = nn.functional.mse_loss(input, self.target)
         return input
+
 # Style loss
 def gram_matrix(input):
     b, c, h, w = input.size()
     features = input.view(c, h * w)
     G = torch.mm(features, features.t())
     return G.div(c * h * w)
+
 class StyleLoss(nn.Module):
     def __init__(self, target_feature):
         super(StyleLoss, self).__init__()
@@ -49,11 +54,13 @@ class StyleLoss(nn.Module):
         G = gram_matrix(input)
         self.loss = nn.functional.mse_loss(G, self.target)
         return input
+
 # VGG model (used for features only)
 cnn = models.vgg19(pretrained=True).features.to(device).eval()
 
 cnn_normalization_mean = torch.tensor([0.485, 0.456, 0.406]).to(device)
 cnn_normalization_std = torch.tensor([0.229, 0.224, 0.225]).to(device)
+
 class Normalization(nn.Module):
     def __init__(self, mean, std):
         super(Normalization, self).__init__()
@@ -90,6 +97,7 @@ def get_style_model_and_losses(cnn, normalization_mean, normalization_std,
             name = f'bn_{i}'
         else:
             continue
+
         model.add_module(name, layer)
 
         if name in content_layers:
@@ -139,6 +147,7 @@ def run_style_transfer(style_path, content_path, output_path, num_steps=300, sty
             return loss
 
         optimizer.step(closure)
+
     input_img.data.clamp_(0, 1)
     image = input_img.cpu().clone().squeeze(0)
     image = unloader(image)
