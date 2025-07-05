@@ -139,3 +139,7 @@ def run_style_transfer(style_path, content_path, output_path, num_steps=300, sty
             return loss
 
         optimizer.step(closure)
+    input_img.data.clamp_(0, 1)
+    image = input_img.cpu().clone().squeeze(0)
+    image = unloader(image)
+    image.save(output_path)
