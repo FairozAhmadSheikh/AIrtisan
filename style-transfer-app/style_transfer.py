@@ -15,3 +15,8 @@ loader = transforms.Compose([
     transforms.Normalize(mean=[0.485, 0.456, 0.406],
                          std=[0.229, 0.224, 0.225])
 ])
+unloader = transforms.Compose([
+    transforms.Normalize(mean=[-2.12, -2.04, -1.80],
+                         std=[4.37, 4.46, 4.44]),
+    transforms.ToPILImage()
+])
