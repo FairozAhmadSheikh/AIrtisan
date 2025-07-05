@@ -40,3 +40,12 @@ def gram_matrix(input):
     features = input.view(c, h * w)
     G = torch.mm(features, features.t())
     return G.div(c * h * w)
+class StyleLoss(nn.Module):
+    def __init__(self, target_feature):
+        super(StyleLoss, self).__init__()
+        self.target = gram_matrix(target_feature).detach()
+
+    def forward(self, input):
+        G = gram_matrix(input)
+        self.loss = nn.functional.mse_loss(G, self.target)
+        return input
