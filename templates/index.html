@@ -62,6 +62,24 @@
     loader.classList.remove('hidden');
   });
 </script>
+<script>
+  function previewImage(inputId, previewId) {
+    const input = document.getElementById(inputId);
+    const preview = document.getElementById(previewId);
+
+    input.addEventListener('change', function () {
+      const file = this.files[0];
+      if (file) {
+        preview.src = URL.createObjectURL(file);
+        preview.classList.remove('hidden');
+      }
+    });
+  }
+
+  previewImage("style-input", "style-preview");
+  previewImage("content-input", "content-preview");
+</script>
+
 
 </body>
 </html>
