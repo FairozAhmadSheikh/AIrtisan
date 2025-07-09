@@ -28,14 +28,14 @@
           class="glass p-8 rounded-2xl w-[90%] sm:w-96 text-green-200">
       <label class="block mb-4">
         <span class="text-green-400">Upload Style Image</span>
-        <input type="file" name="style" required
-               class="mt-1 block w-full px-3 py-2 rounded bg-black bg-opacity-30 border border-green-500 text-green-300" />
+        <input type="file" name="style" id="style-input" required class="...">
+        <img id="style-preview" class="mt-2 w-full rounded-lg hidden" />
       </label>
 
       <label class="block mb-6">
-        <span class="text-green-400">Upload Content Image</span>
-        <input type="file" name="content" required
-               class="mt-1 block w-full px-3 py-2 rounded bg-black bg-opacity-30 border border-green-500 text-green-300" />
+       <span class="text-green-400">Upload Content Image</span>
+       <input type="file" name="content" id="content-input" required class="...">
+       <img id="content-preview" class="mt-2 w-full rounded-lg hidden" />
       </label>
 
       <button type="submit"
